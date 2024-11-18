@@ -38,6 +38,18 @@ class Dao_galleta {
         }
     }
 
+
+    async obtener_galletas(){
+        try{
+
+            const galleta = new Galleta();
+            const cookies = await galleta.model.findAll();
+            return cookies;
+        }catch(e){
+            throw new Error(e.message);
+        }
+    }
+
 }
 
 

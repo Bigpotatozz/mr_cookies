@@ -1,4 +1,5 @@
 const { Create_Galleta, Update_Galleta } = require("../commands/CQRS_galleta");
+const { Dao_galleta } = require("../DAO/DAO_galleta");
 const { Galleta } = require("../models/galleta.model");
 
 const post_galleta = async(req, res) => {
@@ -46,7 +47,23 @@ const update_galleta = async(req, res) => {
     }
 }
 
+const get_galletas = async(req, res) => {
+    try{
+       
+        const dao_galleta = new Dao_galleta();
+        const cookies = await dao_galleta.obtener_galletas();
+        return res.status(200).json({
+            message: "Cookies obtained successfully",
+            cookies: cookies
+        });
+    }catch(e){
+        res.status(500).json({
+            message: e.message
+        });
+    }
+};
 
 
 
-module.exports = {post_galleta, update_galleta};
+
+module.exports = {post_galleta, update_galleta, get_galletas};
