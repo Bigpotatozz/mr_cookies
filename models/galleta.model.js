@@ -9,7 +9,7 @@ class Galleta{
             nombre_galleta: {type: DataTypes.STRING},
             caducidad: {type: DataTypes.DATE},
             descripcion: {type: DataTypes.STRING},
-            estatus: {type: DataTypes.BOOLEAN},
+            estatus: {type: DataTypes.BOOLEAN, defaultValue: true},
             costo_produccion: {type: DataTypes.FLOAT},
         
             id_receta_fk: {
