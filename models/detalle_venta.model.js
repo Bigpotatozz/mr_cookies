@@ -8,7 +8,6 @@ class Detalle_venta {
 
             id_detalle_venta: {primaryKey: true, autoIncrement: true, type: DataTypes.INTEGER},
             tipo_unidad: {type: DataTypes.STRING},
-            total: {type: DataTypes.INTEGER},
             cantidad: {type: DataTypes.INTEGER},
 
             id_galleta_fk: {
