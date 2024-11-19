@@ -51,7 +51,25 @@ get_ventas = async(req, res) => {
             message: e.message
         });
     }
+};
+
+
+get_detalle_ventas = async(req, res) => {
+    try{
+
+        const dao_venta = new Dao_venta();
+        const detalle_ventas = await dao_venta.obtener_detalle_ventas();
+
+        return res.status(200).json({
+            message: "Detalle de ventas obtenido con éxito",
+            detalle_ventas: detalle_ventas
+        });
+
+    }catch(e){
+        res.status(500).json({
+            message: e.message
+        });
+    }
 }
 
-
-module.exports = {post_venta, get_ventas};
+module.exports = {post_venta, get_ventas, get_detalle_ventas};

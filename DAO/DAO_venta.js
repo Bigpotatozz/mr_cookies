@@ -32,22 +32,29 @@ class Dao_venta {
                 if(producto.tipo_unidad === 'peso'){
 
                     let galletas_cantidad = Math.floor(producto.cantidad / peso_galleta);
-                    console.log('cantidad en galleta: '+ galletas_cantidad);
                         total += galleta_data.precio_venta * galletas_cantidad;
                         await galleta_data.update({cantidad: galleta_data.cantidad - galletas_cantidad}, { transaction: transaction });
                         
                     
 
                 }
-   
+
+                if(producto.tipo_unidad === 'monetaria'){
+                    let galletas_cantidad = Math.floor(producto.cantidad / galleta_data.precio_venta);
+                    console.log(galletas_cantidad);
+                    total += galleta_data.precio_venta * galletas_cantidad;
+                    await galleta_data.update({cantidad: galleta_data.cantidad - galletas_cantidad}, { transaction: transaction });
+                }   
+
+                if(producto.tipo_unidad === 'caja'){
+                    total += galleta_data.precio_venta * producto.cantidad;
+                    await galleta_data.update({cantidad: galleta_data.cantidad - producto.cantidad}, { transaction: transaction });
+                }
+
             }
     
             console.log(total);
- 
             let created_venta = await venta.model.create({ fecha_venta: new Date(), total: total }, { transaction: transaction });
-
-    
-
             for (let producto of productos) {
                let detalle =  await detalle_venta.model.create({
                     id_galleta_fk: producto.id_galleta,
@@ -70,23 +77,19 @@ class Dao_venta {
             throw new Error(e.message);
         }
     };
-    
-
-
-   
-
 
     obtener_ventas =  async() => {
         try{
 
             const venta = new Venta();
-            const ventas = await venta.model.findAll();
+            const ventas = await venta.model.findAll({});
             return ventas;
 
         }catch(e){
             throw new Error(e.message);
         }
     }
+
 
 
 
