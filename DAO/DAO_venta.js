@@ -14,28 +14,35 @@ class Dao_venta {
             const galleta = new Galleta();
     
             let total = 0;
+            let peso_galleta = 40;
     
         
             for (let producto of productos) {
                 const galleta_data = await galleta.model.findOne({
-                    where: { id_galleta: producto.id_galleta }
-                }, { transaction: transaction });
+                    where: { id_galleta: producto.id_galleta },
+                    transaction: transaction,
+                    lock: true});
     
+    
+                if(producto.tipo_unidad === 'unidad'){
+                    total += galleta_data.precio_venta * producto.cantidad;
+                    await galleta_data.update({ cantidad: galleta_data.cantidad - producto.cantidad }, { transaction: transaction });
+                }
+                
+                if(producto.tipo_unidad === 'peso'){
 
-                if (!galleta_data) {
-                    throw new Error(`Producto con ID ${producto.id_galleta} no encontrado`);
+                    if(producto.cantidad >= peso_galleta && producto.cantidad < peso_galleta + 9){
+                        let galleta_cantidad = 1;
+                        total += galleta_data.precio_venta * galleta_cantidad;
+                        await galleta_data.update({cantidad: galleta_data.cantidad - 1}, { transaction: transaction });
+                        
+                    }
+
                 }
-    
-                total += galleta_data.precio_venta * producto.cantidad;
-    
-         
-                if (galleta_data.cantidad < producto.cantidad) {
-                    throw new Error(`No hay suficiente stock para el producto ${producto.id_galleta}`);
-                }
-    
-                await galleta_data.update({ cantidad: galleta_data.cantidad - producto.cantidad }, { transaction: transaction });
+           
             }
     
+            console.log(total);
  
             let created_venta = await venta.model.create({ fecha_venta: new Date(), total: total }, { transaction: transaction });
 
@@ -63,8 +70,11 @@ class Dao_venta {
             await transaction.rollback();
             throw new Error(e.message);
         }
-    }
+    };
     
+
+
+   
 
 
     obtener_ventas =  async() => {
