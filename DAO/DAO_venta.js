@@ -42,6 +42,19 @@ class Dao_venta {
     }
 
 
+    obtener_ventas =  async() => {
+        try{
+
+            const venta = new Venta();
+            const ventas = await venta.model.findAll();
+            return ventas;
+
+        }catch(e){
+            throw new Error(e.message);
+        }
+    }
+
+
 
 };
 

@@ -1,8 +1,10 @@
 const { Router } = require('express'); 
-const { post_venta } = require('../controllers/ventas_controller');
+const { post_venta, get_ventas } = require('../controllers/ventas_controller');
 const router_ventas = Router();
 
 router_ventas.post('/postVenta', post_venta);
+
+router_ventas.get('/getVentas', get_ventas);
 
 
 

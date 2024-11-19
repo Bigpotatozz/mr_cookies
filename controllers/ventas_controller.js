@@ -4,6 +4,7 @@ const { Venta } = require("../models/venta.model");
 const { connection, db_connection } = require("../config/connection");
 const { Galleta } = require("../models/galleta.model");
 const { Create_Venta } = require("../commands/CQRS_venta");
+const { Dao_venta } = require("../DAO/DAO_venta");
 
 post_venta = async(req, res) => {
 
@@ -35,5 +36,22 @@ post_venta = async(req, res) => {
 
 };
 
+get_ventas = async(req, res) => {
+    try{
+    
+        const dao_venta =  new Dao_venta();
+        const ventas =  await dao_venta.obtener_ventas();
 
-module.exports = {post_venta};
+        return res.status(200).json({
+            message: "Ventas obtenidas con éxito",
+            ventas: ventas
+        })
+    }catch(e){
+        res.status(500).json({
+            message: e.message
+        });
+    }
+}
+
+
+module.exports = {post_venta, get_ventas};
