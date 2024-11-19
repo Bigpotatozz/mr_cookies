@@ -31,6 +31,9 @@ class Dao_venta {
                 
                 if(producto.tipo_unidad === 'peso'){
 
+                    let galletas_cantidad = Math.floor(producto.cantidad / peso_galleta);
+                    console.log('cantidad en galleta: '+ galletas_cantidad);
+
                     if(producto.cantidad >= peso_galleta && producto.cantidad < peso_galleta + 9){
                         let galleta_cantidad = 1;
                         total += galleta_data.precio_venta * galleta_cantidad;
@@ -39,7 +42,7 @@ class Dao_venta {
                     }
 
                 }
-           
+   
             }
     
             console.log(total);
@@ -57,7 +60,6 @@ class Dao_venta {
                 }, { transaction: transaction });
 
 
-                console.log(detalle)
             }
     
   
