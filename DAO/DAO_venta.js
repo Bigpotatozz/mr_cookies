@@ -33,13 +33,10 @@ class Dao_venta {
 
                     let galletas_cantidad = Math.floor(producto.cantidad / peso_galleta);
                     console.log('cantidad en galleta: '+ galletas_cantidad);
-
-                    if(producto.cantidad >= peso_galleta && producto.cantidad < peso_galleta + 9){
-                        let galleta_cantidad = 1;
-                        total += galleta_data.precio_venta * galleta_cantidad;
-                        await galleta_data.update({cantidad: galleta_data.cantidad - 1}, { transaction: transaction });
+                        total += galleta_data.precio_venta * galletas_cantidad;
+                        await galleta_data.update({cantidad: galleta_data.cantidad - galletas_cantidad}, { transaction: transaction });
                         
-                    }
+                    
 
                 }
    
