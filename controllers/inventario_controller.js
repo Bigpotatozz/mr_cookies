@@ -4,14 +4,14 @@ const { Galleta } = require("../models/galleta.model");
 
 const post_galleta = async(req, res) => {
     
-    const {nombre_galleta, caducidad, descripcion, estatus, costo_produccion, id_receta} = req.body;
+    const {nombre, caducidad, descripcion, estatus, costo_produccion, precio_venta,cantidad, id_receta} = req.body;
 
     try{
     
-        const create_galleta_command = new Create_Galleta(nombre_galleta, caducidad, descripcion, estatus, costo_produccion, id_receta);
+        const create_galleta_command = new Create_Galleta(nombre, cantidad,caducidad, descripcion, estatus, costo_produccion, precio_venta, id_receta);
 
 
-        const created_cookie = await create_galleta_command.create_galleta(nombre_galleta, caducidad, descripcion, costo_produccion, id_receta);
+        const created_cookie = await create_galleta_command.create_galleta(nombre,cantidad, caducidad, descripcion, costo_produccion,precio_venta, id_receta);
 
 
 

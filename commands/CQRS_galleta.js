@@ -2,21 +2,23 @@ const { Dao_galleta } = require("../DAO/DAO_galleta");
 
 class Create_Galleta {
 
-    constructor(nombre_galleta, caducidad, descripcion, costo_produccion, id_receta){
-        this.nombre_galleta = nombre_galleta;
+    constructor(nombre,cantidad, caducidad, descripcion, costo_produccion, precio_venta, id_receta){
+        this.nombre = nombre;
         this.caducidad = caducidad;
         this.descripcion = descripcion;
+        this.cantidad = cantidad;
         this.costo_produccion = costo_produccion;
+        this.precio_venta = precio_venta;
         this.id_receta = id_receta;
     }
 
 
 
-    async create_galleta(nombre_galleta, caducidad, descripcion, costo_produccion, id_receta){
+    async create_galleta(nombre,cantidad, caducidad, descripcion, costo_produccion,precio_venta, id_receta){
         try{    
 
             const dao_galleta = new Dao_galleta();
-            const created_cookie = await dao_galleta.create_galleta(nombre_galleta, caducidad, descripcion, costo_produccion, id_receta);
+            const created_cookie = await dao_galleta.create_galleta(nombre,cantidad,caducidad, descripcion, costo_produccion,precio_venta, id_receta);
             return created_cookie;
 
         }catch(e){

@@ -3,17 +3,19 @@ const { Galleta } = require("../models/galleta.model");
 class Dao_galleta {
 
 
-    async create_galleta(nombre_galleta, caducidad, descripcion, costo_produccion, id_receta){
+    async create_galleta(nombre_galleta, cantidad, caducidad, descripcion, costo_produccion, precio_venta, id_receta){
 
         try{
 
             const galleta = new Galleta();
 
             
-            const created_cookie = await galleta.model.create({nombre_galleta: nombre_galleta,
+            const created_cookie = await galleta.model.create({nombre: nombre_galleta,
+                                                                cantidad: cantidad,
                                                                 caducidad : caducidad,
                                                                 descripcion: descripcion,
                                                                 costo_produccion: costo_produccion,
+                                                                precio_venta: precio_venta,
                                                                 id_receta_fk: id_receta});
 
             return created_cookie;
