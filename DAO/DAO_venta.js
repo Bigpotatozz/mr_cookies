@@ -63,7 +63,7 @@ class Dao_venta {
                     cantidad: producto.cantidad
                 }, { transaction: transaction });
 
-
+ //AAAAAAAAAAAAAAAAAAAAAAAAAAA
             }
     
   
