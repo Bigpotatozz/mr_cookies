@@ -31,7 +31,7 @@ class Dao_galleta {
         try{
 
             const galleta = new Galleta();
-            const edited_cookie = await galleta.model.update({nombre_galleta: nombre_galleta},{where: {id_galleta: id_galleta}});
+            const edited_cookie = await galleta.model.update({nombre: nombre_galleta},{where: {id_galleta: id_galleta}});
 
             return edited_cookie;
 
