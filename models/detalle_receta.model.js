@@ -3,25 +3,25 @@ const { db_connection } = require("../config/connection");
 class Detalle_receta {
 
     constructor(){
-      db_connection.define('inventario',{       
+      db_connection.define('detalle_receta',{       
         id_detalle_receta: {primaryKey: true, autoIncrement: true, type: DataTypes.INTEGER},
-        cantidad_insumo: {type: DataTypes.INTEGER},
-        id_inventario: {
+        cantidad: {type: DataTypes.INTEGER},
+        id_insumo: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'inventario',
-                key: 'id_inventario'
+                model: 'insumo',
+                key: 'id_insumo'
             }
         },
-        id_receta: {
+        id_galleta: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'receta',
-                key: 'id_receta'
+                model: 'galleta',
+                key: 'id_galleta'
             }
         }
         
-        }, {tableName:'inventario', timestamps: false});
+        }, {tableName:'detalle_receta', timestamps: false});
     }
 }
 

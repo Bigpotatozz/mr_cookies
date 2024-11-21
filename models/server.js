@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const {connection} = require('../config/connection');
 const { router_inventario } = require('../routes/inventario_routes');
+const { router_ventas } = require('../routes/ventas_routes');
 
 
 class Server{
@@ -35,6 +36,7 @@ class Server{
 
     routes(){
         this.app.use('/api/inventario', router_inventario);
+        this.app.use('/api/ventas', router_ventas);
      }
 
     listen(){

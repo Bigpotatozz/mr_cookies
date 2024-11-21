@@ -6,20 +6,13 @@ class Galleta{
         this.model = db_connection.define('galleta',{
 
             id_galleta: { primaryKey: true, autoIncrement: true, type: DataTypes.INTEGER},
-            nombre_galleta: {type: DataTypes.STRING},
+            nombre: {type: DataTypes.STRING},
+            cantidad: {type: DataTypes.INTEGER, allowNull: false},
             caducidad: {type: DataTypes.DATE},
             descripcion: {type: DataTypes.STRING},
-            estatus: {type: DataTypes.BOOLEAN},
             costo_produccion: {type: DataTypes.FLOAT},
-        
-            id_receta_fk: {
-                type: DataTypes.INTEGER,
-                references: {
-                    model: 'receta',
-                    key: 'id_receta'
-                }
-            }
-
+            precio_venta: {type: DataTypes.FLOAT},
+            estatus: {type: DataTypes.BOOLEAN, defaultValue: true},
 
         }, {tableName:'galleta', timestamps: false});
     }

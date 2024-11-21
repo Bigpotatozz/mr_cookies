@@ -8,10 +8,9 @@ class Detalle_venta {
 
             id_detalle_venta: {primaryKey: true, autoIncrement: true, type: DataTypes.INTEGER},
             tipo_unidad: {type: DataTypes.STRING},
-            unidades_vendidas: {type: DataTypes.INTEGER},
-            precio_venta: {type: DataTypes.FLOAT},
-            
-            id_galleta: {
+            cantidad: {type: DataTypes.INTEGER},
+
+            id_galleta_fk: {
                 type: DataTypes.INTEGER,
                 references: {
                     model: 'galleta',
@@ -19,7 +18,7 @@ class Detalle_venta {
                 }
             },
 
-            id_venta: {
+            id_venta_fk: {
                 type: DataTypes.INTEGER,
                 references: {
                     model: 'venta',
