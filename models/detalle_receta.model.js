@@ -3,7 +3,7 @@ const { db_connection } = require("../config/connection");
 class Detalle_receta {
 
     constructor(){
-      db_connection.define('detalle_receta',{       
+      this.model = db_connection.define('detalle_receta',{       
         id_detalle_receta: {primaryKey: true, autoIncrement: true, type: DataTypes.INTEGER},
         cantidad: {type: DataTypes.INTEGER},
         id_insumo_fk: {

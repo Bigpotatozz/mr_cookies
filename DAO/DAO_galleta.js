@@ -1,27 +1,59 @@
+const { db_connection } = require("../config/connection");
+const { Detalle_receta } = require("../models/detalle_receta.model");
 const { Galleta } = require("../models/galleta.model");
+const { Insumo } = require("../models/insumo.model");
 
 class Dao_galleta {
 
 
-    async create_galleta(nombre_galleta, cantidad, caducidad, descripcion, costo_produccion, precio_venta, id_receta){
+    async create_galleta(id_galleta){
 
+        const transaction = await db_connection.transaction();
         try{
 
-            const galleta = new Galleta();
-
             
-            const created_cookie = await galleta.model.create({nombre: nombre_galleta,
-                                                                cantidad: cantidad,
-                                                                caducidad : caducidad,
-                                                                descripcion: descripcion,
-                                                                costo_produccion: costo_produccion,
-                                                                precio_venta: precio_venta,
-                                                                id_receta_fk: id_receta});
+            const galleta = new Galleta();
+            const detalle_receta = new Detalle_receta();
+            let insumo = new Insumo();
+            let lote = 24;
 
-            return created_cookie;
+            const match_galleta = await galleta.model.findOne({where: {id_galleta: id_galleta}, transaction: transaction});
+
+            if(!match_galleta){
+                throw new Error('La galleta no existe');
+            }
+
+            const receta = await detalle_receta.model.findAll({where: {id_galleta_fk: id_galleta}, transaction: transaction});
+
+            for(let supply of receta){
+
+               const match = await insumo.model.findByPk(supply.id_insumo_fk, {lock: true, transaction: transaction});
+               let insumo_cantidad = supply.cantidad * lote;
+                
+               if(!match){
+                   throw new Error('El insumo no existe');
+                }
+
+                if(insumo_cantidad > match.cantidad){
+                    throw new Error('No hay suficiente insumo');
+                }
+
+
+                await match.update({cantidad: match.cantidad - insumo_cantidad},{transaction: transaction});
+            }
+
+            await match_galleta.update({cantidad: match_galleta.cantidad + lote, estatus: 'OK'}, {transaction: transaction});
+
+            transaction.commit();
+
+            return receta;
+
+
 
 
         }catch(e){
+            console.log(e);
+            transaction.rollback();
             throw new Error(e.message);
         }
     }
