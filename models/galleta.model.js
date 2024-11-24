@@ -12,7 +12,7 @@ class Galleta{
             descripcion: {type: DataTypes.STRING},
             costo_produccion: {type: DataTypes.FLOAT},
             precio_venta: {type: DataTypes.FLOAT},
-            estatus: {type: DataTypes.BOOLEAN, defaultValue: true},
+            estatus: {type: DataTypes.STRING, defaultValue: 'OK'},
 
         }, {tableName:'galleta', timestamps: false});
     }

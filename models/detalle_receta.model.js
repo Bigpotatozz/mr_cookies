@@ -6,14 +6,14 @@ class Detalle_receta {
       db_connection.define('detalle_receta',{       
         id_detalle_receta: {primaryKey: true, autoIncrement: true, type: DataTypes.INTEGER},
         cantidad: {type: DataTypes.INTEGER},
-        id_insumo: {
+        id_insumo_fk: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'insumo',
                 key: 'id_insumo'
             }
         },
-        id_galleta: {
+        id_galleta_fk: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'galleta',

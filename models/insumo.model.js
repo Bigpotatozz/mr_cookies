@@ -19,4 +19,4 @@ class Insumo{
     }
 }
 
-module.exports = Inventario;
+module.exports = {Insumo};

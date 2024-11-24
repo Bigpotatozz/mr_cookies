@@ -62,9 +62,7 @@ class Dao_venta {
                     tipo_unidad: producto.tipo_unidad,
                     cantidad: producto.cantidad
                 }, { transaction: transaction });
-
- //AAAAAAAAAAAAAAAAAAAAAAAAAAA
-            }
+          }
     
   
 
