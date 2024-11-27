@@ -1,6 +1,8 @@
+const { galletas_externas_app_service } = require("../app_service/galletas_externas_service");
 const { Create_Galleta, Update_Galleta } = require("../commands/CQRS_galleta");
 const { Dao_galleta } = require("../DAO/DAO_galleta");
 const { Galleta } = require("../models/galleta.model");
+const { galleta_view_model } = require("../view_models/galleta_vm");
 
 const post_galleta = async(req, res) => {
     
@@ -64,6 +66,28 @@ const get_galletas = async(req, res) => {
 };
 
 
+const get_galletas_todo = async(req, res) => {
+    try{
+
+        const dao_galleta = new Dao_galleta();
+        const galleta_vm = new galleta_view_model();
+        const galletas_propias =  await dao_galleta.obtener_galletas();
+        let dataPropios = await galleta_vm.formatear_data_galletas(galletas_propias);
+        const galletas = new galletas_externas_app_service();
+        let data = await galletas.getGalletasExternas();
+        let galletas_total = [...dataPropios, ...data];
+        return res.status(200).json({
+            message: "Cookies obtained successfully",
+            cookies: galletas_total
+        });
+    }catch(error){
+        console.log(error)
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
 
 
-module.exports = {post_galleta, update_galleta, get_galletas};
+
+module.exports = {post_galleta, update_galleta, get_galletas, get_galletas_todo};
