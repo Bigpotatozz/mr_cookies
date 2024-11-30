@@ -76,6 +76,7 @@ const get_galletas_todo = async(req, res) => {
         const galletas = new galletas_externas_app_service();
         let data = await galletas.getGalletasExternas();
         let galletas_total = [...dataPropios, ...data];
+        console.log(galletas_total);
         return res.status(200).json({
             message: "Cookies obtained successfully",
             cookies: galletas_total

@@ -9,4 +9,4 @@ router_inventario.get('/getGalletas', get_galletas);
 router_inventario.get('/getGalletasTodo', get_galletas_todo);
 
 
-module.exports = {router_inventario}
+module.exports = {router_inventario}    

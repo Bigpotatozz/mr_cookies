@@ -12,17 +12,18 @@ class galletas_externas_app_service {
         try {
 
             try{
-                const galletas_erick = await fetch('http://192.168.137.254:3000/api/books/', {
+                let galletas_erick = await fetch('http://localhost:8082/api/inventario/getGalletas', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
+                
 
                 galletas_erick = await galletas_erick.json();
-                let galletas_erick_formated = await galleta_vm.formatear_data_galletas(galletas_erick);
+                let galletas_erick_formated = await galleta_vm.formatear_data_galletas(galletas_erick.cookies);
 
-                galletas_total = [...galletas_total, galletas_erick_formated]
+                galletas_total = [...galletas_total, ...galletas_erick_formated]
             }catch(error){
                 console.log(error);
             }
@@ -31,7 +32,7 @@ class galletas_externas_app_service {
                
 
             try{
-                const galletas_ruben = await fetch('http://192.168.137.254:3000/api/books/', {
+                let galletas_ruben = await fetch('http://192.168.137.254:3000/api/books/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'}
@@ -40,13 +41,13 @@ class galletas_externas_app_service {
                 galletas_ruben = await libros_ruben.json();
                 let galletas_ruben_formated = await galleta_vm.formatear_data_galletas(galletas_ruben);
 
-                libros_total = [...galletas_total, galletas_ruben_formated]
+                libros_total = [...galletas_total, ...galletas_ruben_formated]
             }catch(error){
                 console.log(error);
             }
 
             try{
-                const galletas_luis = await fetch('http://192.168.137.254:3000/api/books/', {
+                let galletas_luis = await fetch('http://192.168.137.254:3000/api/books/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'}
@@ -54,7 +55,7 @@ class galletas_externas_app_service {
 
                 galletas_luis = await galletas_luis.json();
                 let galletas_luis_formated = await galleta_vm.formatear_data_galletas(galletas_luis);
-                galletas_total = [...galletas_total, galletas_luis_formated]
+                galletas_total = [...galletas_total, ...galletas_luis_formated]
             }catch(error){
                 console.log(error);
             }
