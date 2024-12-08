@@ -1,4 +1,4 @@
-const { Create_Galleta, Update_Galleta } = require("../commands/CQRS_galleta");
+const { Create_Galleta, Update_Galleta, Update_estatus_galleta } = require("../commands/CQRS_galleta");
 const { Dao_galleta } = require("../DAO/DAO_galleta");
 const { Galleta } = require("../models/galleta.model");
 
@@ -62,6 +62,11 @@ const get_galletas = async(req, res) => {
         });
     }
 };
+
+
+
+
+
 
 
 

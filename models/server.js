@@ -4,6 +4,7 @@ const {connection} = require('../config/connection');
 const { router_inventario } = require('../routes/inventario_routes');
 const { router_ventas } = require('../routes/ventas_routes');
 const { router_insumos } = require('../routes/insumos_routes');
+const { router_produccion } = require('../routes/routes_produccion');
 
 
 class Server{
@@ -39,6 +40,7 @@ class Server{
         this.app.use('/api/inventario', router_inventario);
         this.app.use('/api/ventas', router_ventas);
         this.app.use('/api/insumos', router_insumos);
+        this.app.use('/api/produccion', router_produccion);
      }
 
     listen(){

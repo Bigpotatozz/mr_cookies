@@ -1,5 +1,5 @@
 const { Router } = require('express'); 
-const { post_galleta, update_galleta, get_galletas } = require('../controllers/inventario_controller');
+const { post_galleta, update_galleta, get_galletas, send_to_production } = require('../controllers/inventario_controller');
 const router_inventario = Router();
 
 

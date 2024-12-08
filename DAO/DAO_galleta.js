@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { db_connection } = require("../config/connection");
 const { Detalle_receta } = require("../models/detalle_receta.model");
 const { Galleta } = require("../models/galleta.model");
@@ -72,6 +73,18 @@ class Dao_galleta {
         }
     }
 
+    async update_estatus_galleta(id_galleta, estatus){
+        try{
+
+            const galleta = new Galleta();
+            const edited_cookie = await galleta.model.update({estatus: estatus},{where: {id_galleta: id_galleta}});
+            return edited_cookie;
+
+        }catch(e){
+            throw new Error(e.message);
+        }
+    }
+
 
     async obtener_galletas(){
         try{
@@ -79,6 +92,21 @@ class Dao_galleta {
             const galleta = new Galleta();
             const cookies = await galleta.model.findAll();
             return cookies;
+        }catch(e){
+            throw new Error(e.message);
+        }
+    }
+
+    async get_production(){
+        try{
+
+            const galleta = new Galleta();
+            const production = await galleta.model.findAll({where: {estatus: {[Op.in]: ['preparacion', 'horneado', 'enfriando']}}});
+            if(production.length === 0){
+                throw new Error('No hay produccion en curso');
+            }
+            return production;
+            
         }catch(e){
             throw new Error(e.message);
         }
